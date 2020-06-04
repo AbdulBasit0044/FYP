@@ -1,0 +1,33 @@
+name: speakup
+description: A new Flutter application.
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  flutter_dialogflow: ^0.1.0
+  speech_recognition: ^0.3.0+1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/speak-up-279213-f89c60f20a35.json
+    - assets/speak-up-gaqiqt-d626f0c8e0e8.json
+
+
