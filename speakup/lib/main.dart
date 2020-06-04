@@ -3,7 +3,7 @@ import 'package:flutter_dialogflow/dialogflow_v2.dart';
 import 'package:speakup/chatbotPage.dart';
 import 'voicebotPage.dart';
 
-void main() => runApp(MaterialApp(home: MyApp()));
+void main() => runApp(MaterialApp(home: voicebotPage()));
 
 class MyApp extends StatefulWidget {
   @override
