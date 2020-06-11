@@ -67,7 +67,6 @@ class _voicebotPageState extends State<voicebotPage> {
     _speech.setRecognitionStartedHandler(onRecognitionStarted);
     _speech.setRecognitionResultHandler(onRecognitionResult);
     _speech.setRecognitionCompleteHandler(onRecognitionComplete);
-    callSpeak();
     _speech.setErrorHandler(errorHandler);
     _speech.activate('en_US').then((res) {
       setState(() => _speechRecognitionAvailable = res);
@@ -75,7 +74,6 @@ class _voicebotPageState extends State<voicebotPage> {
   }
 
   FlutterTts flutterTts = new FlutterTts();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,41 +86,96 @@ class _voicebotPageState extends State<voicebotPage> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            new Expanded(
-              child: new Container(
-                padding: const EdgeInsets.all(8.0),
-                color: Colors.yellow.shade200,
-                child: new Text(transcription),
+            Expanded(
+              flex: 4,
+              child: Container(
+                color: Colors.pink.shade100,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 100.0, 10.0, 0.0),
+                  child: new Text(
+                    transcription,
+                    style: TextStyle(fontSize: 24.0),
+                  ),
+                ),
               ),
             ),
             SizedBox(height: 10.0),
             Expanded(
+              flex: 4,
               child: Container(
-                color: Colors.orange.shade100,
-                child: new Text(aiReply),
+                color: Colors.pink.shade100,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 100.0, 10.0, 0.0),
+                  child: new Text(
+                    aiReply,
+                    style: TextStyle(fontSize: 24.0),
+                  ),
+                ),
               ),
             ),
             Expanded(
-              child: RaisedButton(
-                //onPressed: speak,
-                child: new Text('Say Hello'),
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 75.0,
+                        width: 75.0,
+                        child: FloatingActionButton(
+                          heroTag: null,
+                          mini: true,
+                          backgroundColor: Colors.deepPurple,
+                          child: Icon(
+                            Icons.cancel,
+                            size: 40.0,
+                          ),
+                          onPressed: _isListening ? () => cancel() : null,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      SizedBox(
+                        height: 100.0,
+                        width: 100.0,
+                        child: FloatingActionButton(
+                          heroTag: null,
+                          backgroundColor: Colors.green,
+                          child: Icon(
+                            Icons.mic,
+                            size: 40.0,
+                          ),
+                          onPressed:
+                              _speechRecognitionAvailable && !_isListening
+                                  ? () => start()
+                                  : null,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      SizedBox(
+                        height: 75.0,
+                        width: 75.0,
+                        child: FloatingActionButton(
+                          heroTag: null,
+                          backgroundColor: Colors.red,
+                          child: Icon(
+                            Icons.stop,
+                            size: 40.0,
+                          ),
+                          mini: true,
+                          onPressed: _isListening ? () => stop() : null,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            _buildButton(
-              onPressed: _speechRecognitionAvailable && !_isListening
-                  ? () => start()
-                  : null,
-              label: _isListening
-                  ? 'Listening...'
-                  : 'Listen (${selectedLang.code})',
-            ),
-            _buildButton(
-              onPressed: _isListening ? () => cancel() : null,
-              label: 'Cancel',
-            ),
-            _buildButton(
-              onPressed: _isListening ? () => stop() : null,
-              label: 'Stop',
             ),
           ],
         ),
@@ -142,16 +195,17 @@ class _voicebotPageState extends State<voicebotPage> {
     setState(() => selectedLang = lang);
   }
 
-  Widget _buildButton({String label, VoidCallback onPressed}) => new Padding(
-      padding: new EdgeInsets.all(12.0),
-      child: new RaisedButton(
-        color: Colors.cyan.shade600,
-        onPressed: onPressed,
-        child: new Text(
-          label,
-          style: const TextStyle(color: Colors.white),
-        ),
-      ));
+  Widget _buildButton({String label, VoidCallback onPressed, Icon icon}) =>
+      new Padding(
+          padding: new EdgeInsets.all(12.0),
+          child: new RaisedButton(
+            color: Colors.cyan.shade600,
+            onPressed: onPressed,
+            child: new Text(
+              label,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ));
 
   void start() => _speech.activate(selectedLang.code).then((_) {
         return _speech.listen().then((result) {
@@ -191,16 +245,11 @@ class _voicebotPageState extends State<voicebotPage> {
     print('_MyAppState.onRecognitionComplete... $text');
     setState(() {
       _isListening = false;
+      response(transcription);
     });
   }
 
-  void errorHandler() {
-    activateSpeechRecognizer();
-  }
-
-  void callSpeak() {
-    response(transcription);
-  }
+  void errorHandler() => activateSpeechRecognizer();
 
   speak() async {
     flutterTts.speak(aiReply);

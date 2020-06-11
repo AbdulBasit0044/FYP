@@ -46,7 +46,10 @@ class _chatbotPageState extends State<chatbotPage> {
                   padding: EdgeInsets.all(10.0),
                   itemCount: messages.length,
                   itemBuilder: (context, index) => messages[index]['data'] == 0
-                      ? Text(messages[index]["message"].toString())
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(messages[index]["message"].toString()),
+                        )
                       : Text(
                           messages[index]["message"].toString(),
                           textAlign: TextAlign.right,

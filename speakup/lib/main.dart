@@ -3,7 +3,7 @@ import 'package:flutter_dialogflow/dialogflow_v2.dart';
 import 'package:speakup/chatbotPage.dart';
 import 'voicebotPage.dart';
 
-void main() => runApp(MaterialApp(home: voicebotPage()));
+void main() => runApp(MaterialApp(home: MyApp()));
 
 class MyApp extends StatefulWidget {
   @override
@@ -28,23 +28,31 @@ class _MyAppState extends State<MyApp> {
         title: Text("Speak Up chat bot"),
         backgroundColor: Colors.pink,
       ),
+      drawer: Drawer(),
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/img1.jpg'),
+            fit: BoxFit.fill,
+            colorFilter: ColorFilter.linearToSrgbGamma(),
+          ),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               IconButton(
-                iconSize: 60.0,
+                iconSize: 130.0,
+                icon: Image.asset('assets/chatbot.png'),
                 hoverColor: Colors.green,
-                icon: Icon(Icons.chat_bubble),
                 onPressed: () {
                   navigateTochatbotPage(context);
                 },
               ),
               IconButton(
-                iconSize: 60.0,
+                iconSize: 200.0,
+                icon: Image.asset('assets/voicebot.png'),
                 hoverColor: Colors.green,
-                icon: Icon(Icons.voice_chat),
                 onPressed: () {
                   navigateTovoicebotPage(context);
                 },

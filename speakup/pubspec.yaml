@@ -33,5 +33,8 @@ flutter:
   assets:
     - assets/speak-up-279213-f89c60f20a35.json
     - assets/speak-up-gaqiqt-d626f0c8e0e8.json
+    - assets/voicebot.png
+    - assets/chatbot.png
+    - assets/images/img1.png
 
 
