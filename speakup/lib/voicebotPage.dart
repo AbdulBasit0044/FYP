@@ -78,7 +78,13 @@ class _voicebotPageState extends State<voicebotPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Speak Up chat bot"),
+        title: Text("SpeakUp VoiceBot",
+            style: TextStyle(                  
+            fontFamily: "MetalMania",
+            fontSize: 30.0,
+            color: Colors.white,
+          ),
+        ),
         backgroundColor: Colors.pink,
       ),
       body: Center(
@@ -131,23 +137,23 @@ class _voicebotPageState extends State<voicebotPage> {
                           backgroundColor: Colors.deepPurple,
                           child: Icon(
                             Icons.cancel,
-                            size: 40.0,
+                            size: 30.0,
                           ),
                           onPressed: _isListening ? () => cancel() : null,
                         ),
                       ),
                       SizedBox(
-                        width: 20.0,
+                        width: 10.0,
                       ),
                       SizedBox(
-                        height: 100.0,
-                        width: 100.0,
+                        height: 75.0,
+                        width: 75.0,
                         child: FloatingActionButton(
                           heroTag: null,
                           backgroundColor: Colors.green,
                           child: Icon(
                             Icons.mic,
-                            size: 40.0,
+                            size: 30.0,
                           ),
                           onPressed:
                               _speechRecognitionAvailable && !_isListening
@@ -159,14 +165,14 @@ class _voicebotPageState extends State<voicebotPage> {
                         width: 20.0,
                       ),
                       SizedBox(
-                        height: 75.0,
-                        width: 75.0,
+                        height: 50.0,
+                        width: 50.0,
                         child: FloatingActionButton(
                           heroTag: null,
                           backgroundColor: Colors.red,
                           child: Icon(
                             Icons.stop,
-                            size: 40.0,
+                            size: 30.0,
                           ),
                           mini: true,
                           onPressed: _isListening ? () => stop() : null,

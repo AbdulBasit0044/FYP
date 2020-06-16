@@ -1,65 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dialogflow/dialogflow_v2.dart';
-import 'package:speakup/chatbotPage.dart';
-import 'voicebotPage.dart';
+import 'package:speakup/screens/authenticate/first_page.dart';
+//import 'package:speakup/screens/authenticate/sign_in_with_google.dart';
+//import 'package:speakup/screens/wrapper.dart';
+import 'package:provider/provider.dart';
+import 'package:speakup/services/auth.dart';
+import 'package:speakup/models/user.dart';
 
-void main() => runApp(MaterialApp(home: MyApp()));
+void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  Future navigateTochatbotPage(context) async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => chatbotPage()));
-  }
-
-  Future navigateTovoicebotPage(context) async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => voicebotPage()));
-  }
-
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Speak Up chat bot"),
-        backgroundColor: Colors.pink,
-      ),
-      drawer: Drawer(),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/img1.jpg'),
-            fit: BoxFit.fill,
-            colorFilter: ColorFilter.linearToSrgbGamma(),
-          ),
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: MaterialApp(
+        theme: ThemeData(
+          primaryColor: Colors.black,
+          accentColor: Colors.yellow[600],
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                iconSize: 130.0,
-                icon: Image.asset('assets/chatbot.png'),
-                hoverColor: Colors.green,
-                onPressed: () {
-                  navigateTochatbotPage(context);
-                },
-              ),
-              IconButton(
-                iconSize: 200.0,
-                icon: Image.asset('assets/voicebot.png'),
-                hoverColor: Colors.green,
-                onPressed: () {
-                  navigateTovoicebotPage(context);
-                },
-              ),
-            ],
-          ),
-        ),
+        //home: Wrapper(),
+        home: FirstPage(),
       ),
     );
   }

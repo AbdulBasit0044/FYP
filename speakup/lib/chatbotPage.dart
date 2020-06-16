@@ -29,7 +29,13 @@ class _chatbotPageState extends State<chatbotPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Speak Up chat bot"),
+        title: Text("SpeakUp chatbot",
+                    style: TextStyle(                  
+                    fontFamily: "MetalMania",
+                    fontSize: 30.0,
+                    color: Colors.white,
+              ),
+            ),
         backgroundColor: Colors.pink,
       ),
       body: chatbotWidget(),
